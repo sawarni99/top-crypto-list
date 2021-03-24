@@ -1,26 +1,25 @@
 <template>
   <div class="home">
     <h1 class="header">Top Crypto Currency List</h1>
-    <div class="table">
-      <table>
-        <tr>
-          <td class="heading"><b>Icon</b></td>
-          <td class="heading"><b>Name</b></td>
-          <td class="heading"><b>Symbol</b></td>
-          <td class="heading"><b>Price</b></td>
-          <td class="heading"><b>Change</b></td>
-        </tr>
-        <tr v-for="item in pageOfItems" :key="item.id">
-          <td class="data-item">
-            <img :src="item.iconUrl" alt="" height="15px" />
-          </td>
-          <td class="data-item">{{ item.name }}</td>
-          <td class="data-item">{{ item.symbol }}</td>
-          <td class="data-item">${{ item.price }}</td>
-          <td class="data-item">{{ item.change }}%</td>
-        </tr>
-      </table>
-    </div>
+
+    <table>
+      <tr>
+        <td class="heading"><b>Icon</b></td>
+        <td class="heading"><b>Name</b></td>
+        <td class="heading"><b>Symbol</b></td>
+        <td class="heading"><b>Price</b></td>
+        <td class="heading"><b>Change</b></td>
+      </tr>
+      <tr v-for="item in pageOfItems" :key="item.id">
+        <td class="data-item">
+          <img :src="item.iconUrl" alt="" height="15px" />
+        </td>
+        <td class="data-item">{{ item.name }}</td>
+        <td class="data-item">{{ item.symbol }}</td>
+        <td class="data-item">${{ item.price }}</td>
+        <td class="data-item">{{ item.change }}%</td>
+      </tr>
+    </table>
     <div class="pagination">
       <jw-pagination
         :pageSize="itemsInPage"
@@ -64,16 +63,17 @@ export default {
     },
     onClick(number) {
       this.itemsInPage = number;
+      this.fetchCryptoList();
     },
   },
   computed: mapGetters(["cryptoList"]),
   created() {
     this.fetchCryptoList();
-    // Every 2 sec the currency updates...
+    // Every 2 min the currency updates...
     window.setInterval(() => {
       this.fetchCryptoList();
       console.log("Updated crypto!!");
-    }, 2000);
+    }, 120000);
   },
 };
 </script>
@@ -94,22 +94,26 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.table {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px dashed rgb(209, 209, 209);
+table {
+  width: 100%;
+  border: dashed rgb(177, 177, 177);
   border-radius: 10px;
-  width: 90%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  margin: 1%;
-  padding: 2%;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 1%;
+}
+tr {
+  overflow: auto;
 }
 td {
+  padding: 1%;
+  width: 200px;
+  overflow: auto;
   text-align: center;
-  padding-left: 5%;
-  padding-right: 5%;
-  color: rgb(39, 39, 39);
 }
 .heading {
   font-size: large;
