@@ -8,9 +8,16 @@
       <Column v-bind:list="pageOfItems" name="price" head="Price" pre="$" />
       <Column v-bind:list="pageOfItems" name="change" head="Change" post="%" />
     </div>
+    <div class="item-button">
+      Items in the Page {{ " " }}
+      <button v-on:click="onClickItemsInPage(10)">10</button>
+      <button v-on:click="onClickItemsInPage(25)">25</button>
+      <button v-on:click="onClickItemsInPage(50)">50</button>
+      <button v-on:click="onClickItemsInPage(100)">100</button>
+    </div>
     <div class="pagination">
       <jw-pagination
-        :pageSize="10"
+        :pageSize="itemsInPage"
         :items="cryptoList"
         @changePage="onChangePage"
       ></jw-pagination>
@@ -24,8 +31,8 @@ import VueAxios from "vue-axios";
 import axios from "axios";
 import { mapGetters, mapActions } from "vuex";
 import Column from "./Column";
-
 Vue.use(VueAxios, axios);
+
 export default {
   name: "Home",
   components: {
@@ -34,12 +41,16 @@ export default {
   data() {
     return {
       pageOfItems: [],
+      itemsInPage: 10,
     };
   },
   methods: {
     ...mapActions(["fetchCryptoList"]),
     onChangePage(pageOfItems) {
       this.pageOfItems = pageOfItems;
+    },
+    onClickItemsInPage(number) {
+      this.itemsInPage = number;
     },
   },
   computed: mapGetters(["cryptoList"]),
@@ -79,6 +90,9 @@ export default {
   border-radius: 10px;
   width: 90%;
   flex-wrap: wrap;
+  margin: 1%;
+}
+.item-button {
   margin: 1%;
 }
 .pagination {
