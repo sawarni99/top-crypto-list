@@ -45,6 +45,12 @@ export default {
   computed: mapGetters(["cryptoList"]),
   created() {
     this.fetchCryptoList();
+
+    // Every 2 min the currency updates...
+    window.setInterval(() => {
+      this.fetchCryptoList();
+      console.log("Updated crypto!!");
+    }, 120000);
   },
 };
 </script>
