@@ -2,36 +2,11 @@
   <div class="home">
     <h1 class="header">Top Crypto Currency List</h1>
     <div class="table">
-      <div class="column">
-        <b class="table-heading">Icon</b>
-        <div v-for="item in pageOfItems" :key="item.id">
-          {{ item.name }}
-        </div>
-      </div>
-      <div class="column">
-        <b class="table-heading">Name</b>
-        <div v-for="item in pageOfItems" :key="item.id">
-          {{ item.name }}
-        </div>
-      </div>
-      <div class="column">
-        <b class="table-heading">Symbol</b>
-        <div v-for="item in pageOfItems" :key="item.id">
-          {{ item.symbol }}
-        </div>
-      </div>
-      <div class="column">
-        <b class="table-heading">Price</b>
-        <div v-for="item in pageOfItems" :key="item.id">
-          {{ item.price }}
-        </div>
-      </div>
-      <div class="column">
-        <b class="table-heading">Change</b>
-        <div v-for="item in pageOfItems" :key="item.id">
-          {{ item.change }}
-        </div>
-      </div>
+      <Column v-bind:list="pageOfItems" name="name" head="Icon" />
+      <Column v-bind:list="pageOfItems" name="name" head="Name" />
+      <Column v-bind:list="pageOfItems" name="symbol" head="Symbol" />
+      <Column v-bind:list="pageOfItems" name="price" head="Price" pre="$" />
+      <Column v-bind:list="pageOfItems" name="change" head="Change" post="%" />
     </div>
     <div class="pagination">
       <jw-pagination
@@ -48,9 +23,14 @@ import Vue from "vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
 import { mapGetters, mapActions } from "vuex";
+import Column from "./Column";
+
 Vue.use(VueAxios, axios);
 export default {
   name: "Home",
+  components: {
+    Column,
+  },
   data() {
     return {
       pageOfItems: [],
