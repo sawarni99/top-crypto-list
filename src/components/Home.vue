@@ -36,7 +36,7 @@
     <div class="pagination">
       <jw-pagination
         :pageSize="20"
-        :items="listCurrency"
+        :items="cryptoList"
         @changePage="onChangePage"
       ></jw-pagination>
     </div>
@@ -47,27 +47,24 @@
 import Vue from "vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
+import { mapGetters, mapActions } from "vuex";
 Vue.use(VueAxios, axios);
 export default {
   name: "Home",
   data() {
     return {
-      listCurrency: [],
       pageOfItems: [],
     };
   },
-  mounted() {
-    Vue.axios
-      .get("https://api.coinranking.com/v1/public/coins/?limit=100")
-      .then((resp) => {
-        console.log(resp.data);
-        this.listCurrency = resp.data.data.coins;
-      });
-  },
   methods: {
+    ...mapActions(["fetchCryptoList"]),
     onChangePage(pageOfItems) {
       this.pageOfItems = pageOfItems;
     },
+  },
+  computed: mapGetters(["cryptoList"]),
+  created() {
+    this.fetchCryptoList();
   },
 };
 </script>
