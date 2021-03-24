@@ -2,11 +2,24 @@
   <div class="home">
     <h1 class="header">Top Crypto Currency List</h1>
     <div class="table">
-      <Column v-bind:list="pageOfItems" name="name" head="Icon" />
-      <Column v-bind:list="pageOfItems" name="name" head="Name" />
-      <Column v-bind:list="pageOfItems" name="symbol" head="Symbol" />
-      <Column v-bind:list="pageOfItems" name="price" head="Price" pre="$" />
-      <Column v-bind:list="pageOfItems" name="change" head="Change" post="%" />
+      <table>
+        <tr>
+          <td class="heading"><b>Icon</b></td>
+          <td class="heading"><b>Name</b></td>
+          <td class="heading"><b>Symbol</b></td>
+          <td class="heading"><b>Price</b></td>
+          <td class="heading"><b>Change</b></td>
+        </tr>
+        <tr v-for="item in pageOfItems" :key="item.id">
+          <td class="data-item">
+            <img :src="item.iconUrl" alt="" height="15px" />
+          </td>
+          <td class="data-item">{{ item.name }}</td>
+          <td class="data-item">{{ item.symbol }}</td>
+          <td class="data-item">${{ item.price }}</td>
+          <td class="data-item">{{ item.change }}%</td>
+        </tr>
+      </table>
     </div>
     <div class="pagination">
       <jw-pagination
@@ -30,13 +43,13 @@ import Vue from "vue";
 import VueAxios from "vue-axios";
 import axios from "axios";
 import { mapGetters, mapActions } from "vuex";
-import Column from "./Column";
+//import Column from "./Column";
 Vue.use(VueAxios, axios);
 
 export default {
   name: "Home",
   components: {
-    Column,
+    //Column,
   },
   data() {
     return {
@@ -90,6 +103,16 @@ export default {
   width: 90%;
   flex-wrap: wrap;
   margin: 1%;
+  padding: 2%;
+}
+td {
+  text-align: center;
+  padding-left: 5%;
+  padding-right: 5%;
+  color: rgb(39, 39, 39);
+}
+.heading {
+  font-size: large;
 }
 .item-button {
   margin: 1%;
