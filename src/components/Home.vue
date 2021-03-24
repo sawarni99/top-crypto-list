@@ -8,19 +8,19 @@
       <Column v-bind:list="pageOfItems" name="price" head="Price" pre="$" />
       <Column v-bind:list="pageOfItems" name="change" head="Change" post="%" />
     </div>
-    <div class="item-button">
-      Items in the Page {{ " " }}
-      <button v-on:click="onClickItemsInPage(10)">10</button>
-      <button v-on:click="onClickItemsInPage(25)">25</button>
-      <button v-on:click="onClickItemsInPage(50)">50</button>
-      <button v-on:click="onClickItemsInPage(100)">100</button>
-    </div>
     <div class="pagination">
       <jw-pagination
         :pageSize="itemsInPage"
         :items="cryptoList"
         @changePage="onChangePage"
       ></jw-pagination>
+    </div>
+    <div class="item-button">
+      Items in the Page {{ " " }}
+      <button v-on:click="onClick(10)">10</button>
+      <button v-on:click="onClick(25)">25</button>
+      <button v-on:click="onClick(50)">50</button>
+      <button v-on:click="onClick(100)">100</button>
     </div>
   </div>
 </template>
@@ -49,19 +49,18 @@ export default {
     onChangePage(pageOfItems) {
       this.pageOfItems = pageOfItems;
     },
-    onClickItemsInPage(number) {
+    onClick(number) {
       this.itemsInPage = number;
     },
   },
   computed: mapGetters(["cryptoList"]),
   created() {
     this.fetchCryptoList();
-
-    // Every 2 min the currency updates...
+    // Every 2 sec the currency updates...
     window.setInterval(() => {
       this.fetchCryptoList();
       console.log("Updated crypto!!");
-    }, 120000);
+    }, 2000);
   },
 };
 </script>
