@@ -10,7 +10,7 @@
     </div>
     <div class="pagination">
       <jw-pagination
-        :pageSize="20"
+        :pageSize="10"
         :items="cryptoList"
         @changePage="onChangePage"
       ></jw-pagination>
@@ -70,23 +70,13 @@ export default {
   align-items: center;
   justify-content: center;
   border: 2px dashed rgb(209, 209, 209);
+  border-radius: 10px;
   width: 90%;
   flex-wrap: wrap;
   margin: 1%;
 }
-.column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: rgb(46, 46, 46);
-  margin: 3%;
-}
-.table-heading {
-  font-size: 20px;
-  margin-bottom: 15px;
-}
 .pagination {
-  background: rgb(189, 189, 223);
+  background: rgb(198, 198, 247);
   border-radius: 5px;
   display: flex;
   justify-content: center;
